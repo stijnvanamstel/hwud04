@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="IronBase – jouw powerlifting hub voor training, progressie en community." />
+  <title>IronBase – Powerlifting Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- ══════════ NAV ══════════ -->
+<nav id="navbar">
+  <div class="nav-logo">IRON<span>BASE</span></div>
+  <ul class="nav-links">
+    <li><a href="#hero">Home</a></li>
+    <li><a href="#generator">Generator</a></li>
+    <li><a href="#tracker">Tracker</a></li>
+    <li><a href="#gymfinder">Gym Finder</a></li>
+    <li><a href="#planner">Planner</a></li>
+    <li><a href="#leaderboard">Leaderboard</a></li>
+    <li><a href="#gids">Gids</a></li>  </ul>
+  <button class="nav-toggle" id="navToggle">☰</button>
+</nav>
+
+<!-- ══════════ HERO ══════════ -->
+<section id="hero">
+  <!-- 
+    AFBEELDING: hero-bg.jpg
+    Gebruik een donkere, atmosferische foto van een powerlifting gym:
+    bijv. halterstang met gewichten op een platform, zwak belicht, industrieel.
+    Bron: Unsplash.com → zoek "powerlifting gym dark" of "barbell platform"
+    Grootte: minimaal 1920×1080px, gecomprimeerd naar <500KB (WebP aanbevolen)
+  -->
+  <div class="hero-content">
+    <p class="hero-sub">Jouw powerlifting hub</p>
+    <h1 class="hero-title">IRON<br><span>BASE</span></h1>
+    <p class="hero-desc">Train slimmer. Track je lifts. Word sterker.</p>
+    <a href="#generator" class="btn-primary">Start nu</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><span class="stat-num">3</span><span class="stat-label">Big Lifts</span></div>
+    <div class="stat"><span class="stat-num">∞</span><span class="stat-label">Progressie</span></div>
+    <div class="stat"><span class="stat-num">1RM</span><span class="stat-label">Calculator</span></div>
+  </div>
+  <!-- Animated GIF indicator -->
+  <div class="hero-gif-wrap">
+    <!-- 
+      AFBEELDING: barbell-spin.gif
+      Geanimeerde GIF van een roterende barbell of kettlebell (bovenaanzicht).
+      Maak zelf in Photoshop/GIMP of download van giphy.com (zoek "barbell spin loop").
+      Grootte: max 300×300px, <400KB, lage framerate (10fps) om bestand klein te houden.
+      De GIF verrijkt de hero subtiel zonder storend te zijn.
+    -->
+    <img src="images/barbell-spin.gif" alt="Barbell animatie" class="hero-gif" onerror="this.style.display='none'" />
+  </div>
+</section>
+
+<!-- ══════════ WORKOUT GENERATOR ══════════ -->
+<section id="generator" class="section">
+  <div class="section-inner">
+    <h2 class="section-title">Workout <span>Generator</span></h2>
+    <p class="section-sub">Kies je doel en ontvang een gepersonaliseerd schema.</p>
+    <div class="generator-controls">
+      <div class="form-group">
+        <label>Doel</label>
+        <select id="genGoal">
+          <option value="kracht">Kracht (1RM focus)</option>
+          <option value="spiermassa">Spiermassa (hypertrofie)</option>
+          <option value="beginner">Beginner (basis opbouw)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Dagen per week</label>
+        <select id="genDays">
+          <option value="3">3 dagen</option>
+          <option value="4">4 dagen</option>
+          <option value="5">5 dagen</option>
+        </select>
+      </div>
+      <button class="btn-primary" id="generateBtn">Genereer Schema ⚡</button>
+    </div>
+    <div id="workoutOutput" class="workout-output hidden"></div>
+  </div>
+</section>
+
+<!-- ══════════ PROGRESS TRACKER ══════════ -->
+<section id="tracker" class="section section-alt">
+  <div class="section-inner">
+    <h2 class="section-title">Progress <span>Tracker</span></h2>
+    <p class="section-sub">Voeg lifts toe en zie je progressie groeien.</p>
+    <div class="tracker-top">
+      <div class="tracker-form">
+        <div class="form-group">
+          <label>Oefening</label>
+          <select id="trkExercise">
+            <option value="Squat">Squat</option>
+            <option value="Bench Press">Bench Press</option>
+            <option value="Deadlift">Deadlift</option>
+            <option value="Overhead Press">Overhead Press</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Gewicht (kg)</label>
+          <input type="number" id="trkWeight" placeholder="100" min="1" />
+        </div>
+        <div class="form-group">
+          <label>Reps</label>
+          <input type="number" id="trkReps" placeholder="5" min="1" max="30" />
+        </div>
+        <div class="form-group">
+          <label>Datum</label>
+          <input type="date" id="trkDate" />
+        </div>
+        <button class="btn-primary" id="addLiftBtn">Voeg toe</button>
+      </div>
+      <div class="onerm-box">
+        <h3>1RM Calculator</h3>
+        <p>Epley formule: <em>gewicht × (1 + reps/30)</em></p>
+        <div class="onerm-result" id="onermResult">— kg</div>
+        <small>Gebaseerd op laatste invoer</small>
+      </div>
+    </div>
+    <div class="chart-wrap">
+      <canvas id="progressChart"></canvas>
+    </div>
+    <div class="lift-history" id="liftHistory"></div>
+  </div>
+</section>
+
+
+<!-- ══════════ WEEK PLANNER ══════════ -->
+<section id="planner" class="section section-alt">
+  <div class="section-inner">
+    <h2 class="section-title">Week<span>planner</span></h2>
+    <p class="section-sub">Sleep workouts naar de dagen. Wordt opgeslagen in je browser.</p>
+    <div class="planner-layout">
+      <div class="workout-bank" id="workoutBank">
+        <h3>Workouts</h3>
+        <div class="bank-items" id="bankItems"></div>
+        <div class="bank-add">
+          <input type="text" id="customWorkout" placeholder="Eigen workout..." />
+          <button class="btn-sm" id="addCustomBtn">+</button>
+        </div>
+      </div>
+      <div class="week-grid" id="weekGrid"></div>
+    </div>
+    <button class="btn-secondary" id="clearPlannerBtn">🗑 Planning wissen</button>
+  </div>
+</section>
+
+<!-- ══════════ LEADERBOARD ══════════ -->
+<section id="leaderboard" class="section">
+  <div class="section-inner">
+    <h2 class="section-title">Leader<span>board</span></h2>
+    <div class="lb-submit">
+      <h3>Voeg jouw lift toe</h3>
+      <div class="lb-form">
+        <input type="text" id="lbName" placeholder="Jouw naam" />
+        <select id="lbLift">
+          <option value="Squat">Squat</option>
+          <option value="Bench Press">Bench Press</option>
+          <option value="Deadlift">Deadlift</option>
+        </select>
+        <input type="number" id="lbKg" placeholder="kg" min="1" />
+        <button class="btn-primary" id="lbSubmitBtn">Toevoegen</button>
+      </div>
+    </div>
+
+    <div class="lb-tables">
+      <div class="lb-table-wrap" id="lbSquat"></div>
+      <div class="lb-table-wrap" id="lbBench"></div>
+      <div class="lb-table-wrap" id="lbDeadlift"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ BEGINNERSGIDS ══════════ -->
+<section id="gids" class="section section-alt">
+  <div class="section-inner">
+    <h2 class="section-title">Beginners<span>gids</span></h2>
+    <p class="section-sub">Alles wat je moet weten om te starten met powerlifting.</p>
+
+    <div class="guide-steps">
+
+      <div class="guide-step" data-step="1">
+        <div class="step-header" onclick="toggleStep(this)">
+          <span class="step-num">01</span>
+          <h3>Wat is Powerlifting?</h3>
+          <span class="step-arrow">▼</span>
+        </div>
+        <div class="step-body">
+          <!-- 
+            AFBEELDING: guide-intro.jpg
+            Foto van een competitie of platform: atleet bereidt zich voor op een squat.
+            Bron: Unsplash.com → zoek "powerlifting competition"
+            Grootte: ca. 800×450px, <200KB (WebP)
+          -->
+          <img src="images/guide-intro.jpg" alt="Powerlifting intro" class="guide-img" onerror="this.style.display='none'" />
+          <p>Powerlifting is een krachtspport waarbij drie lifts centraal staan: de <strong>squat</strong>, de <strong>bench press</strong> en de <strong>deadlift</strong>. Het doel is zo veel mogelijk gewicht te tillen in elk van de drie lifts.</p>
+          <p>In tegenstelling tot bodybuilding draait het bij powerlifting niet om uiterlijk, maar puur om <em>kracht</em>. Wedstrijden worden per gewichtsklasse gehouden.</p>
+        </div>
+      </div>
+
+      <div class="guide-step" data-step="2">
+        <div class="step-header" onclick="toggleStep(this)">
+          <span class="step-num">02</span>
+          <h3>Techniek Basics</h3>
+          <span class="step-arrow">▼</span>
+        </div>
+        <div class="step-body">
+          <div class="technique-tabs">
+            <button class="tab-btn active" onclick="showTechTab(this,'squat')">Squat</button>
+            <button class="tab-btn" onclick="showTechTab(this,'bench')">Bench Press</button>
+            <button class="tab-btn" onclick="showTechTab(this,'deadlift')">Deadlift</button>
+          </div>
+          <div class="tech-content" id="tech-squat">
+            <!-- 
+              AFBEELDING: tech-squat.jpg
+              Zij-aanzicht foto of illustratie van correcte squathouding (neutraal rug, knieën over tenen).
+              Bron: Unsplash → "squat form side view" of maak een simpele SVG illustratie
+              Grootte: 600×400px, <150KB
+            -->
+            <img src="images/tech-squat.jpg" alt="Squat techniek" class="guide-img" onerror="this.style.display='none'" />
+            <ul>
+              <li>Stang op de rug (high-bar of low-bar positie)</li>
+              <li>Voeten schouderbreedte, tenen licht uitgedraaid</li>
+              <li>Borst omhoog, neutrale ruggengraat</li>
+              <li>Daal totdat heup onder kniehoogte komt (parallel of dieper)</li>
+              <li>Druk door de hielen omhoog</li>
+            </ul>
+          </div>
+          <div class="tech-content hidden" id="tech-bench">
+            <img src="images/tech-bench.jpg" alt="Bench Press techniek" class="guide-img" onerror="this.style.display='none'" />
+            <ul>
+              <li>Lig plat op de bank, voeten plat op de grond</li>
+              <li>Greep iets breder dan schouderbreedte</li>
+              <li>Schouderbladen samenknijpen en naar beneden trekken</li>
+              <li>Stang naar borst zakken, ellebogen ca. 45° van het lichaam</li>
+              <li>Explosief omhoog drukken</li>
+            </ul>
+          </div>
+          <div class="tech-content hidden" id="tech-deadlift">
+            <img src="images/tech-deadlift.jpg" alt="Deadlift techniek" class="guide-img" onerror="this.style.display='none'" />
+            <ul>
+              <li>Stang boven het midden van de voet</li>
+              <li>Greep schouderbreedte, armen recht</li>
+              <li>Heupen zakken tot schenen de stang raken</li>
+              <li>Borst omhoog, ruggengraat neutraal ("strak maken")</li>
+              <li>Trek omhoog door benen en heupen gelijktijdig te strekken</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="guide-step" data-step="3">
+        <div class="step-header" onclick="toggleStep(this)">
+          <span class="step-num">03</span>
+          <h3>Veelgemaakte Fouten</h3>
+          <span class="step-arrow">▼</span>
+        </div>
+        <div class="step-body">
+          <div class="mistakes-grid">
+            <div class="mistake-card">
+              <span class="mistake-icon">⚠️</span>
+              <h4>Squat: knieën naar binnen</h4>
+              <p>Door gebrek aan heupkracht of slechte mobiliteit vallen knieën naar binnen. Werk aan glute-activatie en heup mobiliteit.</p>
+            </div>
+            <div class="mistake-card">
+              <span class="mistake-icon">⚠️</span>
+              <h4>Bench: hoge ellebogen</h4>
+              <p>Ellebogen te ver zijwaarts verhoogt schouderblessure-risico. Houd ze 45° van het lichaam.</p>
+            </div>
+            <div class="mistake-card">
+              <span class="mistake-icon">⚠️</span>
+              <h4>Deadlift: ronde rug</h4>
+              <p>De gevaarlijkste fout bij deadliften. Maak altijd je rug strak voor je trekt. Verlaag het gewicht als het niet lukt.</p>
+            </div>
+            <div class="mistake-card">
+              <span class="mistake-icon">⚠️</span>
+              <h4>Ego lifting</h4>
+              <p>Te snel te veel gewicht toevoegen. Verhoog gewicht pas als je de techniek beheerst.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="guide-step" data-step="4">
+        <div class="step-header" onclick="toggleStep(this)">
+          <span class="step-num">04</span>
+          <h3>Je Eerste Programma</h3>
+          <span class="step-arrow">▼</span>
+        </div>
+        <div class="step-body">
+          <p>Als beginner raden we <strong>Starting Strength</strong> of <strong>StrongLifts 5×5</strong> aan. Beide programma's:</p>
+          <ul>
+            <li>3 trainingsdagen per week</li>
+            <li>Focus op de grote compound lifts</li>
+            <li>Lineaire progressie (elke training 2.5–5 kg omhoog)</li>
+            <li>Eenvoudig genoeg om technique te leren</li>
+          </ul>
+          <a href="#generator" class="btn-secondary" style="margin-top:1rem;display:inline-block">Genereer jouw schema →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ GYM FINDER ══════════ -->
+<section id="gymfinder" class="section">
+  <div class="section-inner">
+    <h2 class="section-title">Gym <span>Finder</span></h2>
+    <p class="section-sub">Vind powerlifting-vriendelijke gyms bij jou in de buurt.</p>
+    <div class="filter-bar">
+      <label class="filter-chip">
+        <input type="checkbox" id="fPowerlifting" checked /> Powerlifting friendly
+      </label>
+      <label class="filter-chip">
+        <input type="checkbox" id="f247" /> 24/7 open
+      </label>
+      <label class="filter-chip">
+        <input type="checkbox" id="fCheap" /> Budget (€)
+      </label>
+      <label class="filter-chip">
+        <input type="checkbox" id="fMid" /> Midden (€€)
+      </label>
+      <label class="filter-chip">
+        <input type="checkbox" id="fPremium" /> Premium (€€€)
+      </label>
+    </div>
+    <div id="gymMap"></div>
+    <div id="gymList" class="gym-list"></div>
+  </div>
+</section>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">IRON<span>BASE</span></div>
+    <p>Gebouwd als web-development project. Rubric: HWUD04 2024–2025.</p>
+    <p class="footer-small">HTML5 · CSS Grid & Flexbox · Vanilla JS · Leaflet.js · Chart.js</p>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="scripts/app.js"></script>
+</body>
+</html>
