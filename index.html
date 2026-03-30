@@ -350,5 +350,25 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script src="scripts/app.js"></script>
+<script>
+const buttons = document.querySelectorAll(".tech-buttons button");
+const contents = document.querySelectorAll(".content");
+
+buttons.forEach(button => {
+  button.addEventListener("click", () => {
+
+    // verwijder active van alles
+    buttons.forEach(btn => btn.classList.remove("active"));
+    contents.forEach(c => c.classList.remove("active"));
+
+    // voeg active toe aan geklikte knop
+    button.classList.add("active");
+
+    // juiste content tonen
+    const target = document.getElementById(button.dataset.target);
+    target.classList.add("active");
+  });
+});
+</script>
 </body>
 </html>
