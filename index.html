@@ -28,33 +28,13 @@
 
 <!-- ══════════ HERO ══════════ -->
 <section id="hero">
-  <!-- 
-    AFBEELDING: hero-bg.jpg
-    Gebruik een donkere, atmosferische foto van een powerlifting gym:
-    bijv. halterstang met gewichten op een platform, zwak belicht, industrieel.
-    Bron: Unsplash.com → zoek "powerlifting gym dark" of "barbell platform"
-    Grootte: minimaal 1920×1080px, gecomprimeerd naar <500KB (WebP aanbevolen)
-  -->
   <div class="hero-content">
     <p class="hero-sub">Jouw powerlifting hub</p>
     <h1 class="hero-title">IRON<br><span>BASE</span></h1>
     <p class="hero-desc">Train slimmer. Track je lifts. Word sterker.</p>
     <a href="#generator" class="btn-primary">Start nu</a>
-  </div>
-  <div class="hero-stats">
-    <div class="stat"><span class="stat-num">3</span><span class="stat-label">Big Lifts</span></div>
-    <div class="stat"><span class="stat-num">∞</span><span class="stat-label">Progressie</span></div>
-    <div class="stat"><span class="stat-num">1RM</span><span class="stat-label">Calculator</span></div>
-  </div>
   <!-- Animated GIF indicator -->
   <div class="hero-gif-wrap">
-    <!-- 
-      AFBEELDING: barbell-spin.gif
-      Geanimeerde GIF van een roterende barbell of kettlebell (bovenaanzicht).
-      Maak zelf in Photoshop/GIMP of download van giphy.com (zoek "barbell spin loop").
-      Grootte: max 300×300px, <400KB, lage framerate (10fps) om bestand klein te houden.
-      De GIF verrijkt de hero subtiel zonder storend te zijn.
-    -->
     <img src="images/barbell-spin.gif" alt="Barbell animatie" class="hero-gif" onerror="this.style.display='none'" />
   </div>
 </section>
@@ -193,13 +173,7 @@
           <span class="step-arrow">▼</span>
         </div>
         <div class="step-body">
-          <!-- 
-            AFBEELDING: guide-intro.jpg
-            Foto van een competitie of platform: atleet bereidt zich voor op een squat.
-            Bron: Unsplash.com → zoek "powerlifting competition"
-            Grootte: ca. 800×450px, <200KB (WebP)
-          -->
-          <img src="images/guide-intro.jpg" alt="Powerlifting intro" class="guide-img" onerror="this.style.display='none'" />
+          <img src="images/guide-intro.jpg" alt="Powerlifting intro" class="guide-img" onerror="this.style.display='none'" style="height:200px;"/>
           <p>Powerlifting is een krachtspport waarbij drie lifts centraal staan: de <strong>squat</strong>, de <strong>bench press</strong> en de <strong>deadlift</strong>. Het doel is zo veel mogelijk gewicht te tillen in elk van de drie lifts.</p>
           <p>In tegenstelling tot bodybuilding draait het bij powerlifting niet om uiterlijk, maar puur om <em>kracht</em>. Wedstrijden worden per gewichtsklasse gehouden.</p>
         </div>
@@ -212,19 +186,14 @@
           <span class="step-arrow">▼</span>
         </div>
         <div class="step-body">
-          <div class="technique-tabs">
-            <button class="tab-btn active" onclick="showTechTab(this,'squat')">Squat</button>
-            <button class="tab-btn" onclick="showTechTab(this,'bench')">Bench Press</button>
-            <button class="tab-btn" onclick="showTechTab(this,'deadlift')">Deadlift</button>
-          </div>
-          <div class="tech-content" id="tech-squat">
-            <!-- 
-              AFBEELDING: tech-squat.jpg
-              Zij-aanzicht foto of illustratie van correcte squathouding (neutraal rug, knieën over tenen).
-              Bron: Unsplash → "squat form side view" of maak een simpele SVG illustratie
-              Grootte: 600×400px, <150KB
-            -->
-            <img src="images/tech-squat.jpg" alt="Squat techniek" class="guide-img" onerror="this.style.display='none'" />
+        <div class="tech-buttons">
+          <button data-target="squat" class="active">Squat</button>
+          <button data-target="bench">Bench</button>
+          <button data-target="deadlift">Deadlift</button>
+        </div>
+          <div class="tech-content">
+            <div id="squat" class="content active">
+            <img src="images/tech-squat.webp" alt="Squat techniek" class="guide-img" onerror="this.style.display='none'" />
             <ul>
               <li>Stang op de rug (high-bar of low-bar positie)</li>
               <li>Voeten schouderbreedte, tenen licht uitgedraaid</li>
@@ -233,8 +202,8 @@
               <li>Druk door de hielen omhoog</li>
             </ul>
           </div>
-          <div class="tech-content hidden" id="tech-bench">
-            <img src="images/tech-bench.jpg" alt="Bench Press techniek" class="guide-img" onerror="this.style.display='none'" />
+            <div id="bench" class="content">
+            <img src="images/tech-bench.webp" alt="Bench Press techniek" class="guide-img" onerror="this.style.display='none'"/>
             <ul>
               <li>Lig plat op de bank, voeten plat op de grond</li>
               <li>Greep iets breder dan schouderbreedte</li>
@@ -243,8 +212,8 @@
               <li>Explosief omhoog drukken</li>
             </ul>
           </div>
-          <div class="tech-content hidden" id="tech-deadlift">
-            <img src="images/tech-deadlift.jpg" alt="Deadlift techniek" class="guide-img" onerror="this.style.display='none'" />
+            <div id="deadlift" class="content">
+            <img src="images/tech-deadlift.png" alt="Deadlift techniek" class="guide-img" onerror="this.style.display='none'" style="height"/>
             <ul>
               <li>Stang boven het midden van de voet</li>
               <li>Greep schouderbreedte, armen recht</li>
@@ -315,23 +284,6 @@
   <div class="section-inner">
     <h2 class="section-title">Gym <span>Finder</span></h2>
     <p class="section-sub">Vind powerlifting-vriendelijke gyms bij jou in de buurt.</p>
-    <div class="filter-bar">
-      <label class="filter-chip">
-        <input type="checkbox" id="fPowerlifting" checked /> Powerlifting friendly
-      </label>
-      <label class="filter-chip">
-        <input type="checkbox" id="f247" /> 24/7 open
-      </label>
-      <label class="filter-chip">
-        <input type="checkbox" id="fCheap" /> Budget (€)
-      </label>
-      <label class="filter-chip">
-        <input type="checkbox" id="fMid" /> Midden (€€)
-      </label>
-      <label class="filter-chip">
-        <input type="checkbox" id="fPremium" /> Premium (€€€)
-      </label>
-    </div>
     <div id="gymMap"></div>
     <div id="gymList" class="gym-list"></div>
   </div>
@@ -342,7 +294,6 @@
   <div class="footer-inner">
     <div class="footer-logo">IRON<span>BASE</span></div>
     <p>Gebouwd als web-development project. Rubric: HWUD04 2024–2025.</p>
-    <p class="footer-small">HTML5 · CSS Grid & Flexbox · Vanilla JS · Leaflet.js · Chart.js</p>
   </div>
 </footer>
 
