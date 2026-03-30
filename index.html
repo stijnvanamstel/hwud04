@@ -12,21 +12,20 @@
 </head>
 <body>
 
-<!-- ══════════ NAV ══════════ -->
+<!--Navigatie-->
 <nav id="navbar">
   <div class="nav-logo">IRON<span>BASE</span></div>
   <ul class="nav-links">
     <li><a href="#hero">Home</a></li>
     <li><a href="#generator">Generator</a></li>
     <li><a href="#tracker">Tracker</a></li>
-    <li><a href="#gymfinder">Gym Finder</a></li>
-    <li><a href="#planner">Planner</a></li>
     <li><a href="#leaderboard">Leaderboard</a></li>
-    <li><a href="#gids">Gids</a></li>  </ul>
+    <li><a href="#gids">Gids</a></li>  
+    <li><a href="#gymfinder">Gym Finder</a></li></ul>
   <button class="nav-toggle" id="navToggle">☰</button>
 </nav>
 
-<!-- ══════════ HERO ══════════ -->
+<!--Hero-->
 <section id="hero">
   <div class="hero-content">
     <p class="hero-sub">Jouw powerlifting hub</p>
@@ -35,11 +34,11 @@
     <a href="#generator" class="btn-primary">Start nu</a>
   <!-- Animated GIF indicator -->
   <div class="hero-gif-wrap">
-    <img src="images/barbell-spin.gif" alt="Barbell animatie" class="hero-gif" onerror="this.style.display='none'" />
+    <img src="images/barbell-spin.gif" alt="Barbell animatie" class="hero-gif"/>
   </div>
 </section>
 
-<!-- ══════════ WORKOUT GENERATOR ══════════ -->
+<!--Workout generator-->
 <section class="generator">
   <h2>Workout Generator</h2>
 
@@ -62,7 +61,7 @@
   <div id="workoutOutput"></div>
 </section>
 
-<!-- ══════════ PROGRESS TRACKER ══════════ -->
+<!--Progress tracker-->
 <section id="tracker" class="section section-alt">
   <div class="section-inner">
     <h2 class="section-title">Progress <span>Tracker</span></h2>
@@ -99,40 +98,11 @@
         <small>Gebaseerd op laatste invoer</small>
       </div>
     </div>
-    <div class="chart-wrap">
-      <canvas id="progressChart"></canvas>
-    </div>
     <div class="lift-history" id="liftHistory"></div>
   </div>
 </section>
 
-
-<!-- ══════════ WEEK PLANNER ══════════ -->
-<section class="planner">
-  <h2>Week Planner</h2>
-
-  <div class="days">
-    <button data-day="ma">Ma</button>
-    <button data-day="di">Di</button>
-    <button data-day="wo">Wo</button>
-    <button data-day="do">Do</button>
-    <button data-day="vr">Vr</button>
-    <button data-day="za">Za</button>
-    <button data-day="zo">Zo</button>
-  </div>
-
-  <div class="day-content">
-    <div id="ma" class="day active">Leg day (Squat)</div>
-    <div id="di" class="day">Rust / cardio</div>
-    <div id="wo" class="day">Push (Bench)</div>
-    <div id="do" class="day">Rust</div>
-    <div id="vr" class="day">Pull (Deadlift)</div>
-    <div id="za" class="day">Full body</div>
-    <div id="zo" class="day">Rust</div>
-  </div>
-</section>
-
-<!-- ══════════ LEADERBOARD ══════════ -->
+<!--Leaderboard-->
 <section id="leaderboard" class="section">
   <div class="section-inner">
     <h2 class="section-title">Leader<span>board</span></h2>
@@ -158,128 +128,93 @@
   </div>
 </section>
 
-<!-- ══════════ BEGINNERSGIDS ══════════ -->
+<!--Beginnersgids-->
 <section id="gids" class="section section-alt">
   <div class="section-inner">
     <h2 class="section-title">Beginners<span>gids</span></h2>
     <p class="section-sub">Alles wat je moet weten om te starten met powerlifting.</p>
 
-    <div class="guide-steps">
-
-      <div class="guide-step" data-step="1">
-        <div class="step-header" onclick="toggleStep(this)">
-          <span class="step-num">01</span>
-          <h3>Wat is Powerlifting?</h3>
-          <span class="step-arrow">▼</span>
-        </div>
-        <div class="step-body">
-          <img src="images/guide-intro.jpg" alt="Powerlifting intro" class="guide-img" onerror="this.style.display='none'" style="height:200px;"/>
+    <details class="guide-item">
+      <summary>01 - Wat is Powerlifting?</summary>
+      <div class="guide-body">
+          <img src="images/guide-intro.jpg" alt="Powerlifting intro" class="guide-img" style="height:200px;"/>
           <p>Powerlifting is een krachtspport waarbij drie lifts centraal staan: de <strong>squat</strong>, de <strong>bench press</strong> en de <strong>deadlift</strong>. Het doel is zo veel mogelijk gewicht te tillen in elk van de drie lifts.</p>
           <p>In tegenstelling tot bodybuilding draait het bij powerlifting niet om uiterlijk, maar puur om <em>kracht</em>. Wedstrijden worden per gewichtsklasse gehouden.</p>
-        </div>
+      </div>
+    </details>
+
+    <details class="guide-item">
+      <summary>02 - Techniek Basics</summary>
+      
+      <div class="tech-buttons">
+        <button onclick="showLift('squat')">Squat</button>
+        <button onclick="showLift('bench')">Bench</button>
+        <button onclick="showLift('deadlift')">Deadlift</button>
       </div>
 
-      <div class="guide-step" data-step="2">
-        <div class="step-header" onclick="toggleStep(this)">
-          <span class="step-num">02</span>
-          <h3>Techniek Basics</h3>
-          <span class="step-arrow">▼</span>
-        </div>
-        <div class="step-body">
-        <div class="tech-buttons">
-          <button data-target="squat" class="active">Squat</button>
-          <button data-target="bench">Bench</button>
-          <button data-target="deadlift">Deadlift</button>
-        </div>
-          <div class="tech-content">
-            <div id="squat" class="content active">
-            <img src="images/tech-squat.webp" alt="Squat techniek" class="guide-img" onerror="this.style.display='none'" />
-            <ul>
-              <li>Stang op de rug (high-bar of low-bar positie)</li>
-              <li>Voeten schouderbreedte, tenen licht uitgedraaid</li>
-              <li>Borst omhoog, neutrale ruggengraat</li>
-              <li>Daal totdat heup onder kniehoogte komt (parallel of dieper)</li>
-              <li>Druk door de hielen omhoog</li>
-            </ul>
-          </div>
-            <div id="bench" class="content">
-            <img src="images/tech-bench.webp" alt="Bench Press techniek" class="guide-img" onerror="this.style.display='none'"/>
-            <ul>
-              <li>Lig plat op de bank, voeten plat op de grond</li>
-              <li>Greep iets breder dan schouderbreedte</li>
-              <li>Schouderbladen samenknijpen en naar beneden trekken</li>
-              <li>Stang naar borst zakken, ellebogen ca. 45° van het lichaam</li>
-              <li>Explosief omhoog drukken</li>
-            </ul>
-          </div>
-            <div id="deadlift" class="content">
-            <img src="images/tech-deadlift.png" alt="Deadlift techniek" class="guide-img" onerror="this.style.display='none'" style="height"/>
-            <ul>
-              <li>Stang boven het midden van de voet</li>
-              <li>Greep schouderbreedte, armen recht</li>
-              <li>Heupen zakken tot schenen de stang raken</li>
-              <li>Borst omhoog, ruggengraat neutraal ("strak maken")</li>
-              <li>Trek omhoog door benen en heupen gelijktijdig te strekken</li>
-            </ul>
-          </div>
-        </div>
+      <div id="squat" class="tech-block">
+        <ul>
+          <li>Stang op de rug (high-bar of low-bar positie)</li>
+          <li>Voeten schouderbreedte, tenen licht uitgedraaid</li>
+          <li>Borst omhoog, neutrale ruggengraat</li>
+          <li>Daal totdat heup onder kniehoogte komt (parallel of dieper)</li>
+          <li>Druk door de hielen omhoog</li>
+        </ul>
       </div>
 
-      <div class="guide-step" data-step="3">
-        <div class="step-header" onclick="toggleStep(this)">
-          <span class="step-num">03</span>
-          <h3>Veelgemaakte Fouten</h3>
-          <span class="step-arrow">▼</span>
-        </div>
-        <div class="step-body">
-          <div class="mistakes-grid">
-            <div class="mistake-card">
-              <span class="mistake-icon">⚠️</span>
-              <h4>Squat: knieën naar binnen</h4>
-              <p>Door gebrek aan heupkracht of slechte mobiliteit vallen knieën naar binnen. Werk aan glute-activatie en heup mobiliteit.</p>
-            </div>
-            <div class="mistake-card">
-              <span class="mistake-icon">⚠️</span>
-              <h4>Bench: hoge ellebogen</h4>
-              <p>Ellebogen te ver zijwaarts verhoogt schouderblessure-risico. Houd ze 45° van het lichaam.</p>
-            </div>
-            <div class="mistake-card">
-              <span class="mistake-icon">⚠️</span>
-              <h4>Deadlift: ronde rug</h4>
-              <p>De gevaarlijkste fout bij deadliften. Maak altijd je rug strak voor je trekt. Verlaag het gewicht als het niet lukt.</p>
-            </div>
-            <div class="mistake-card">
-              <span class="mistake-icon">⚠️</span>
-              <h4>Ego lifting</h4>
-              <p>Te snel te veel gewicht toevoegen. Verhoog gewicht pas als je de techniek beheerst.</p>
-            </div>
-          </div>
-        </div>
+      <div id="bench" class="tech-block" style="display:none;">
+        <ul>
+          <li>Lig plat op de bank, voeten plat op de grond</li>
+          <li>Greep iets breder dan schouderbreedte</li>
+          <li>Schouderbladen samenknijpen en naar beneden trekken</li>
+          <li>Stang naar borst zakken, ellebogen ca. 45° van het lichaam</li>
+          <li>Explosief omhoog drukken</li>
+        </ul>
       </div>
 
-      <div class="guide-step" data-step="4">
-        <div class="step-header" onclick="toggleStep(this)">
-          <span class="step-num">04</span>
-          <h3>Je Eerste Programma</h3>
-          <span class="step-arrow">▼</span>
-        </div>
-        <div class="step-body">
-          <p>Als beginner raden we <strong>Starting Strength</strong> of <strong>StrongLifts 5×5</strong> aan. Beide programma's:</p>
-          <ul>
-            <li>3 trainingsdagen per week</li>
-            <li>Focus op de grote compound lifts</li>
-            <li>Lineaire progressie (elke training 2.5–5 kg omhoog)</li>
-            <li>Eenvoudig genoeg om technique te leren</li>
-          </ul>
-          <a href="#generator" class="btn-secondary" style="margin-top:1rem;display:inline-block">Genereer jouw schema →</a>
-        </div>
+      <div id="deadlift" class="tech-block" style="display:none;">
+        <ul>
+          <li>Stang boven het midden van de voet</li>
+          <li>Greep schouderbreedte, armen recht</li>
+          <li>Heupen zakken tot schenen de stang raken</li>
+          <li>Borst omhoog, ruggengraat neutraal ("strak maken")</li>
+          <li>Trek omhoog door benen en heupen gelijktijdig te strekken</li>
+        </ul>
       </div>
+    </details>
 
-    </div>
+    <details class="guide-item">
+      <summary>03 - Veelgemaakte Fouten</summary>
+      <ul>
+        <li><h4>Squat: knieën naar binnen</h4></li>
+        <p>Door gebrek aan heupkracht of slechte mobiliteit vallen knieën naar binnen. Werk aan glute-activatie en heup mobiliteit.</p>
+
+        <li><h4>Bench: hoge ellebogen</h4></li>
+        <p>Ellebogen te ver zijwaarts verhoogt schouderblessure-risico. Houd ze 45° van het lichaam.</p>
+
+        <li><h4>Deadlift: ronde rug</h4></li>
+        <p>De gevaarlijkste fout bij deadliften. Maak altijd je rug strak voor je trekt. Verlaag het gewicht als het niet lukt.</p>
+
+        <li><h4>Ego lifting</h4></li>
+        <p>Te snel te veel gewicht toevoegen. Verhoog gewicht pas als je de techniek beheerst.</p>
+      </ul>
+    </details>
+
+    <details class="guide-item">
+      <summary>04 - Je Eerste Programma</summary>
+      <p>Als beginner raden we <strong>Starting Strength</strong> of <strong>StrongLifts 5×5</strong> aan. Beide programma's:</p>
+      <ul>
+        <li>3 trainingsdagen per week</li>
+        <li>Focus op de grote compound lifts</li>
+        <li>Lineaire progressie (elke training 2.5–5 kg omhoog)</li>
+        <li>Eenvoudig genoeg om technique te leren</li>
+      </ul>
+    </details>
+
   </div>
 </section>
 
-<!-- ══════════ GYM FINDER ══════════ -->
+<!--Gym map-->
 <section id="gymfinder" class="section">
   <div class="section-inner">
     <h2 class="section-title">Gym <span>Finder</span></h2>
@@ -289,7 +224,7 @@
   </div>
 </section>
 
-<!-- ══════════ FOOTER ══════════ -->
+<!--Footer-->
 <footer>
   <div class="footer-inner">
     <div class="footer-logo">IRON<span>BASE</span></div>
@@ -308,14 +243,14 @@ const contents = document.querySelectorAll(".content");
 buttons.forEach(button => {
   button.addEventListener("click", () => {
 
-    // verwijder active van alles
+// verwijder active van alles
     buttons.forEach(btn => btn.classList.remove("active"));
     contents.forEach(c => c.classList.remove("active"));
 
-    // voeg active toe aan geklikte knop
+// voeg active toe aan geklikte knop
     button.classList.add("active");
 
-    // juiste content tonen
+// juiste content tonen
     const target = document.getElementById(button.dataset.target);
     target.classList.add("active");
   });
