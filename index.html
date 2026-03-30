@@ -113,22 +113,27 @@
 
 
 <!-- ══════════ WEEK PLANNER ══════════ -->
-<section id="planner" class="section section-alt">
-  <div class="section-inner">
-    <h2 class="section-title">Week<span>planner</span></h2>
-    <p class="section-sub">Sleep workouts naar de dagen. Wordt opgeslagen in je browser.</p>
-    <div class="planner-layout">
-      <div class="workout-bank" id="workoutBank">
-        <h3>Workouts</h3>
-        <div class="bank-items" id="bankItems"></div>
-        <div class="bank-add">
-          <input type="text" id="customWorkout" placeholder="Eigen workout..." />
-          <button class="btn-sm" id="addCustomBtn">+</button>
-        </div>
-      </div>
-      <div class="week-grid" id="weekGrid"></div>
-    </div>
-    <button class="btn-secondary" id="clearPlannerBtn">🗑 Planning wissen</button>
+<section class="planner">
+  <h2>Week Planner</h2>
+
+  <div class="days">
+    <button data-day="ma">Ma</button>
+    <button data-day="di">Di</button>
+    <button data-day="wo">Wo</button>
+    <button data-day="do">Do</button>
+    <button data-day="vr">Vr</button>
+    <button data-day="za">Za</button>
+    <button data-day="zo">Zo</button>
+  </div>
+
+  <div class="day-content">
+    <div id="ma" class="day active">Leg day (Squat)</div>
+    <div id="di" class="day">Rust / cardio</div>
+    <div id="wo" class="day">Push (Bench)</div>
+    <div id="do" class="day">Rust</div>
+    <div id="vr" class="day">Pull (Deadlift)</div>
+    <div id="za" class="day">Full body</div>
+    <div id="zo" class="day">Rust</div>
   </div>
 </section>
 

@@ -22,6 +22,26 @@ document.getElementById('generateBtn').onclick = function () {
   output.classList.remove('hidden');
 };
 
+// ───────── WEEKPLANNER ─────────
+const dayButtons = document.querySelectorAll(".days button");
+const dayContents = document.querySelectorAll(".day");
+
+dayButtons.forEach(button => {
+  button.addEventListener("click", () => {
+
+    // reset alles
+    dayButtons.forEach(btn => btn.classList.remove("active"));
+    dayContents.forEach(day => day.classList.remove("active"));
+
+    // active knop
+    button.classList.add("active");
+
+    // juiste dag tonen
+    const selectedDay = document.getElementById(button.dataset.day);
+    selectedDay.classList.add("active");
+  });
+});
+
 // ───────── TRACKER ─────────
 let lifts = [];
 
