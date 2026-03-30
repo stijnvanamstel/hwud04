@@ -8,20 +8,6 @@ navToggle.onclick = () => {
   navLinks.classList.toggle('open');
 };
 
-// ───────── WORKOUT GENERATOR ─────────
-document.getElementById('generateBtn').onclick = function () {
-  const output = document.getElementById('workoutOutput');
-
-  output.innerHTML = `
-    <h3>Voorbeeld schema</h3>
-    <p>Maandag: Squat 3x5</p>
-    <p>Woensdag: Bench 3x5</p>
-    <p>Vrijdag: Deadlift 3x5</p>
-  `;
-
-  output.classList.remove('hidden');
-};
-
 // ───────── WEEKPLANNER ─────────
 const dayButtons = document.querySelectorAll(".days button");
 const dayContents = document.querySelectorAll(".day");
