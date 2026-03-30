@@ -265,3 +265,39 @@ footer {
 .content.active {
   display: block;
 }
+
+/* Container */
+#workoutOutput {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+/* Card */
+.workout-card {
+  background-color: #111;
+  border-radius: 10px;
+  padding: 20px;
+  color: white;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+  transition: 0.2s;
+}
+
+/* Hover effect */
+.workout-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Titel */
+.workout-card h4 {
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+/* Lijst */
+.workout-card p {
+  font-size: 14px;
+  line-height: 1.4;
+  color: #ccc;
+}

@@ -107,3 +107,97 @@ function renderLeaderboard() {
     `;
   });
 }
+
+// ───────── WORKOUT GENERATOR ─────────
+document.getElementById("generateBtn").addEventListener("click", generateWorkout);
+
+function createCard(title, content) {
+  return `
+    <div class="workout-card">
+      <h4>${title}</h4>
+      <p>${content}</p>
+    </div>
+  `;
+}
+
+function generateWorkout() {
+  const days = document.getElementById("daysSelect").value;
+  const goal = document.getElementById("goalSelect").value;
+  const output = document.getElementById("workoutOutput");
+
+  let cards = "";
+
+  // =====================
+  // 3 DAGEN
+  // =====================
+  if (days == 3 && goal == "kracht") {
+    cards += createCard("Dag 1", "Squat 5x5<br>Bench 5x5<br>Row 4x8");
+    cards += createCard("Dag 2", "Rust / lichte cardio");
+    cards += createCard("Dag 3", "Deadlift 5x5<br>Overhead Press 5x5");
+  }
+
+  else if (days == 3 && goal == "spiermassa") {
+    cards += createCard("Dag 1", "Squat 4x10<br>Bench 4x10<br>Lat Pulldown 3x12");
+    cards += createCard("Dag 2", "Rust");
+    cards += createCard("Dag 3", "Deadlift 4x8<br>Incline Bench 4x10<br>Row 3x12");
+  }
+
+  else if (days == 3 && goal == "conditie") {
+    cards += createCard("Dag 1", "Circuit: squat, push-ups, burpees");
+    cards += createCard("Dag 2", "Rust");
+    cards += createCard("Dag 3", "HIIT sprints + core");
+  }
+
+  // =====================
+  // 4 DAGEN
+  // =====================
+  else if (days == 4 && goal == "kracht") {
+    cards += createCard("Dag 1 - Upper", "Bench 5x5<br>Row 5x5");
+    cards += createCard("Dag 2 - Lower", "Squat 5x5<br>Leg accessories");
+    cards += createCard("Dag 3", "Rust");
+    cards += createCard("Dag 4 - Lower", "Deadlift 5x5");
+  }
+
+  else if (days == 4 && goal == "spiermassa") {
+    cards += createCard("Dag 1 - Upper", "Chest + Back");
+    cards += createCard("Dag 2 - Lower", "Legs + Glutes");
+    cards += createCard("Dag 3", "Rust");
+    cards += createCard("Dag 4 - Upper", "Armen + shoulders");
+  }
+
+  else if (days == 4 && goal == "conditie") {
+    cards += createCard("Dag 1", "HIIT");
+    cards += createCard("Dag 2", "Full body licht");
+    cards += createCard("Dag 3", "Rust");
+    cards += createCard("Dag 4", "Cardio + core");
+  }
+
+  // =====================
+  // 5 DAGEN
+  // =====================
+  else if (days == 5 && goal == "kracht") {
+    cards += createCard("Dag 1", "Bench zwaar");
+    cards += createCard("Dag 2", "Squat zwaar");
+    cards += createCard("Dag 3", "Rust");
+    cards += createCard("Dag 4", "Deadlift zwaar");
+    cards += createCard("Dag 5", "Accessoires + core");
+  }
+
+  else if (days == 5 && goal == "spiermassa") {
+    cards += createCard("Push", "Chest, shoulders, triceps");
+    cards += createCard("Pull", "Back, biceps");
+    cards += createCard("Legs", "Quads, hamstrings");
+    cards += createCard("Push", "Chest focus");
+    cards += createCard("Pull", "Back focus");
+  }
+
+  else if (days == 5 && goal == "conditie") {
+    cards += createCard("Dag 1", "Cardio");
+    cards += createCard("Dag 2", "HIIT");
+    cards += createCard("Dag 3", "Rust");
+    cards += createCard("Dag 4", "Circuit");
+    cards += createCard("Dag 5", "Cardio");
+  }
+
+  output.innerHTML = cards;
+}
